@@ -91,6 +91,10 @@ num_old_pkgs_keep: 2
 # Uncomment below to set a bandwidth limit in KB/sec for downloading
 # 0 represents unlimited
 # limit_in_KB: 500
+
+verify_size: true
+verify_checksum: true
+
 # Uncomment the below section with appropriate values for proxy configuration
 <% if scope.lookupvar("pulp::params::pulp_proxy_url") == "NONE" %> 
 # proxy_url:
