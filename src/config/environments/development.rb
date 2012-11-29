@@ -26,6 +26,6 @@ Src::Application.configure do
 
   unless File.exist?(File.expand_path('../../../Gemfile.in', __FILE__))
     # do not require additional things with bundler_ext
-    Bundler.require(:debugging, Rails.env)
+    Bundler.require(:debugging, Rails.env, :development_boost)
   end
 end
