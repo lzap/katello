@@ -5,3 +5,4 @@ group :coverage do
     gem 'rcov', '>= 0.9.9'
   end
 end
+
