@@ -18,12 +18,21 @@ if File.exist?(File.expand_path('../../Gemfile.in', __FILE__))
 else
   ENV['BUNDLE_GEMFILE'] = File.expand_path('../../Gemfile', __FILE__)
   puts 'Using bundler instead of gem require'
-  Bundler.require(:default, Rails.env) if defined?(Bundler)
   if defined?(Bundler)
-    Bundler.require(:default, Rails.env)
-
-    # require backend engines only if in katello/cfse mode
-    Bundler.require(:foreman) if Katello::BootUtil.katello?
+    basic_groups = [:default, (:foreman if Katello::BootUtil.katello?)]
+    Bundler.require *case Rails.env.to_sym
+                     when :production
+                       basic_groups
+                     when :build
+                       basic_groups + [:apipie]
+                     when :development
+                       basic_groups +
+                           [:development, :apipie, :development_boost, (:debugging if ENV['TRAVIS'] != 'true')]
+                     when :test
+                       basic_groups + [:development, :test]
+                     else
+                       raise "unknown environment #{Rails.env.to_sym}"
+                     end.compact
   end
 end
 

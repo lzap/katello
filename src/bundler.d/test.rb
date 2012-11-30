@@ -1,6 +1,5 @@
 group :test do
   gem 'ZenTest', '>= 4.4.0', :require => "autotest"
-  gem 'rspec-rails', '>= 2.0.0'
   gem 'autotest-rails', '>= 4.1.0'
 
   # TODO - it looks we do not have any webrat tests

@@ -1,13 +1,8 @@
-# load the test group first
-dir = File.expand_path(File.dirname(__FILE__))
-self.instance_eval(Bundler.read_file("#{dir}/bundler.d/test.rb"))
-
 group :development do
   # code documentation
   gem 'yard', '>= 0.5.3'
-
+  gem 'rspec-rails', '>= 2.0.0' # to be able to run rake spec form development environment
   # for apipie generation
-  gem 'redcarpet'
 
   # generates routes in javascript
   gem "js-routes", :require => 'js_routes'
