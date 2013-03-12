@@ -11,8 +11,11 @@
 # have received a copy of GPLv2 along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 
-%global homedir %{_datarootdir}/%{name}
-%global datadir %{_sharedstatedir}/%{name}
+%{?scl:%scl_package katello}
+%{!?scl:%global pkg_name %{name}}
+
+%global homedir %{_datarootdir}/%{pkg_name}
+%global datadir %{_sharedstatedir}/%{pkg_name}
 %global confdir deploy/common
 
 ### TODO temp disabled for F18 ###
@@ -20,7 +23,7 @@
 %global nodoc 1
 %endif
 
-Name:           katello
+Name:           %{?scl_prefix}katello
 Version:        1.3.14
 Release:        1%{?dist}
 Summary:        A package for managing application life-cycle for Linux systems
@@ -29,18 +32,18 @@ BuildArch:      noarch
 Group:          Applications/Internet
 License:        GPLv2
 URL:            http://www.katello.org
-Source0:        https://fedorahosted.org/releases/k/a/katello/%{name}-%{version}.tar.gz
+Source0:        https://fedorahosted.org/releases/k/a/katello/%{pkg_name}-%{version}.tar.gz
 
-Requires:        %{name}-common
-Requires:        %{name}-glue-elasticsearch
-Requires:        %{name}-glue-pulp
-Requires:        %{name}-glue-foreman
-Requires:        %{name}-glue-candlepin
-Requires:        %{name}-selinux
-Conflicts:       %{name}-headpin
-Requires:        rubygem(bundler_ext)
-BuildRequires:   rubygem(bundler_ext)
-BuildRequires:   rubygem(logging) >= 1.8.0
+Requires:        %{?scl_prefix}%{pkg_name}-common
+Requires:        %{?scl_prefix}%{pkg_name}-glue-elasticsearch
+Requires:        %{?scl_prefix}%{pkg_name}-glue-pulp
+Requires:        %{?scl_prefix}%{pkg_name}-glue-foreman
+Requires:        %{?scl_prefix}%{pkg_name}-glue-candlepin
+Requires:        %{?scl_prefix}%{pkg_name}-selinux
+Conflicts:       %{?scl_prefix}%{pkg_name}-headpin
+Requires:        %{?scl_prefix}rubygem(bundler_ext)
+BuildRequires:   %{?scl_prefix}rubygem(bundler_ext)
+BuildRequires:   %{?scl_prefix}rubygem(logging) >= 1.8.0
 BuildRequires:   asciidoc
 BuildRequires:   /usr/bin/getopt
 
@@ -54,57 +57,57 @@ Requires:       httpd
 Requires:       mod_ssl
 Requires:       openssl
 Requires:       elasticsearch
-Requires:       rubygems
-Requires:       rubygem(rails) >= 3.0.10
-Requires:       rubygem(haml) >= 3.1.2
-Requires:       rubygem(haml-rails)
-Requires:       rubygem(json)
-Requires:       rubygem(rest-client)
-Requires:       rubygem(jammit)
-Requires:       rubygem(rails_warden)
-Requires:       rubygem(net-ldap)
-Requires:       rubygem(compass)
-Requires:       rubygem(compass-960-plugin) >= 0.10.4
-Requires:       rubygem(oauth)
-Requires:       rubygem(i18n_data) >= 0.2.6
-Requires:       rubygem(gettext_i18n_rails)
-Requires:       rubygem(simple-navigation) >= 3.3.4
-Requires:       rubygem(pg)
-Requires:       rubygem(delayed_job) >= 2.1.4
-Requires:       rubygem(acts_as_reportable) >= 1.1.1
-Requires:       rubygem(ruport) >= 1.7.0
-Requires:       rubygem(prawn)
-Requires:       rubygem(daemons) >= 1.1.4
-Requires:       rubygem(uuidtools)
-Requires:       rubygem(hooks)
-Requires:       rubygem(thin)
-Requires:       rubygem(fssm)
-Requires:       rubygem(sass)
-Requires:       rubygem(chunky_png)
-Requires:       rubygem(tire) >= 0.3.0
-Requires:       rubygem(tire) < 0.4
-Requires:       rubygem(ldap_fluff)
-Requires:       rubygem(foreman_api) >= 0.0.7
-Requires:       rubygem(anemone)
-Requires:       rubygem(apipie-rails) >= 0.0.18
-Requires:       rubygem(logging) >= 1.8.0
+Requires:       %{?scl_prefix}rubygems
+Requires:       %{?scl_prefix}rubygem(rails) >= 3.0.10
+Requires:       %{?scl_prefix}rubygem(haml) >= 3.1.2
+Requires:       %{?scl_prefix}rubygem(haml-rails)
+Requires:       %{?scl_prefix}rubygem(json)
+Requires:       %{?scl_prefix}rubygem(rest-client)
+Requires:       %{?scl_prefix}rubygem(jammit)
+Requires:       %{?scl_prefix}rubygem(rails_warden)
+Requires:       %{?scl_prefix}rubygem(net-ldap)
+Requires:       %{?scl_prefix}rubygem(compass)
+Requires:       %{?scl_prefix}rubygem(compass-960-plugin) >= 0.10.4
+Requires:       %{?scl_prefix}rubygem(oauth)
+Requires:       %{?scl_prefix}rubygem(i18n_data) >= 0.2.6
+Requires:       %{?scl_prefix}rubygem(gettext_i18n_rails)
+Requires:       %{?scl_prefix}rubygem(simple-navigation) >= 3.3.4
+Requires:       %{?scl_prefix}rubygem(pg)
+Requires:       %{?scl_prefix}rubygem(delayed_job) >= 2.1.4
+Requires:       %{?scl_prefix}rubygem(acts_as_reportable) >= 1.1.1
+Requires:       %{?scl_prefix}rubygem(ruport) >= 1.7.0
+Requires:       %{?scl_prefix}rubygem(prawn)
+Requires:       %{?scl_prefix}rubygem(daemons) >= 1.1.4
+Requires:       %{?scl_prefix}rubygem(uuidtools)
+Requires:       %{?scl_prefix}rubygem(hooks)
+Requires:       %{?scl_prefix}rubygem(thin)
+Requires:       %{?scl_prefix}rubygem(fssm)
+Requires:       %{?scl_prefix}rubygem(sass)
+Requires:       %{?scl_prefix}rubygem(chunky_png)
+Requires:       %{?scl_prefix}rubygem(tire) >= 0.3.0
+Requires:       %{?scl_prefix}rubygem(tire) < 0.4
+Requires:       %{?scl_prefix}rubygem(ldap_fluff)
+Requires:       %{?scl_prefix}rubygem(foreman_api) >= 0.0.7
+Requires:       %{?scl_prefix}rubygem(anemone)
+Requires:       %{?scl_prefix}rubygem(apipie-rails) >= 0.0.18
+Requires:       %{?scl_prefix}rubygem(logging) >= 1.8.0
 Requires:       lsof
 
 %if 0%{?rhel} == 6
 Requires:       redhat-logos >= 60.0.14
 %endif
 
-%if 0%{?rhel} == 6 || 0%{?fedora} < 17
-Requires: ruby(abi) = 1.8
+%if 0%{?fedora} && 0%{?fedora} <= 17
+Requires: %{?scl_prefix}ruby(abi) = 1.8
 %else
-Requires: ruby(abi) = 1.9.1
+Requires: %{?scl_prefix}ruby(abi) = 1.9.1
 %endif
-Requires: ruby
+Requires: %{?scl_prefix}ruby
 
 # <workaround> for 714167 - undeclared dependencies (regin & multimap)
 # TODO - uncomment the statement once we push patched actionpack to our EL6 repo
 #%if 0%{?fedora} && 0%{?fedora} <= 15
-Requires:       rubygem(regin)
+Requires:       %{?scl_prefix}rubygem(regin)
 #%endif
 # </workaround>
 
@@ -114,47 +117,49 @@ Requires(preun): initscripts
 Requires(post): chkconfig
 Requires(postun): initscripts coreutils sed
 
-BuildRequires:  coreutils findutils sed
-BuildRequires:  rubygems
-BuildRequires:  rubygem-rake
-BuildRequires:  rubygem(gettext)
-BuildRequires:  rubygem(jammit)
-BuildRequires:  rubygem(chunky_png)
-BuildRequires:  rubygem(fssm) >= 0.2.7
-BuildRequires:  rubygem(compass)
-BuildRequires:  rubygem(compass-960-plugin) >= 0.10.4
+BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  sed
+BuildRequires:  %{?scl_prefix}rubygems
+BuildRequires:  %{?scl_prefix}rubygem-rake
+BuildRequires:  %{?scl_prefix}rubygem(gettext)
+BuildRequires:  %{?scl_prefix}rubygem(jammit)
+BuildRequires:  %{?scl_prefix}rubygem(chunky_png)
+BuildRequires:  %{?scl_prefix}rubygem(fssm) >= 0.2.7
+BuildRequires:  %{?scl_prefix}rubygem(compass)
+BuildRequires:  %{?scl_prefix}rubygem(compass-960-plugin) >= 0.10.4
 BuildRequires:  java >= 0:1.6.0
-BuildRequires:  rubygem(alchemy) >= 1.0.0
+BuildRequires:  %{?scl_prefix}rubygem(alchemy) >= 1.0.0
 BuildRequires:  gettext
 BuildRequires:  translate-toolkit
 
 # we require this to be able to build api-docs
-BuildRequires:       rubygem(rails) >= 3.0.10
-BuildRequires:       rubygem(haml) >= 3.1.2
-BuildRequires:       rubygem(haml-rails)
-BuildRequires:       rubygem(json)
-BuildRequires:       rubygem(rest-client)
-BuildRequires:       rubygem(rails_warden)
-BuildRequires:       rubygem(net-ldap)
-BuildRequires:       rubygem(oauth)
-BuildRequires:       rubygem(i18n_data) >= 0.2.6
-BuildRequires:       rubygem(gettext_i18n_rails)
-BuildRequires:       rubygem(simple-navigation) >= 3.3.4
-BuildRequires:       rubygem(pg)
-BuildRequires:       rubygem(delayed_job) >= 2.1.4
-BuildRequires:       rubygem(acts_as_reportable) >= 1.1.1
-BuildRequires:       rubygem(ruport) >= 1.7.0
-BuildRequires:       rubygem(prawn)
-BuildRequires:       rubygem(daemons) >= 1.1.4
-BuildRequires:       rubygem(uuidtools)
-BuildRequires:       rubygem(thin)
-BuildRequires:       rubygem(sass)
-BuildRequires:       rubygem(tire) >= 0.3.0
-BuildRequires:       rubygem(tire) < 0.4
-BuildRequires:       rubygem(ldap_fluff)
-BuildRequires:       rubygem(apipie-rails) >= 0.0.18
-BuildRequires:       rubygem(maruku)
-BuildRequires:       rubygem(foreman_api)
+BuildRequires:       %{?scl_prefix}rubygem(rails) >= 3.0.10
+BuildRequires:       %{?scl_prefix}rubygem(haml) >= 3.1.2
+BuildRequires:       %{?scl_prefix}rubygem(haml-rails)
+BuildRequires:       %{?scl_prefix}rubygem(json)
+BuildRequires:       %{?scl_prefix}rubygem(rest-client)
+BuildRequires:       %{?scl_prefix}rubygem(rails_warden)
+BuildRequires:       %{?scl_prefix}rubygem(net-ldap)
+BuildRequires:       %{?scl_prefix}rubygem(oauth)
+BuildRequires:       %{?scl_prefix}rubygem(i18n_data) >= 0.2.6
+BuildRequires:       %{?scl_prefix}rubygem(gettext_i18n_rails)
+BuildRequires:       %{?scl_prefix}rubygem(simple-navigation) >= 3.3.4
+BuildRequires:       %{?scl_prefix}rubygem(pg)
+BuildRequires:       %{?scl_prefix}rubygem(delayed_job) >= 2.1.4
+BuildRequires:       %{?scl_prefix}rubygem(acts_as_reportable) >= 1.1.1
+BuildRequires:       %{?scl_prefix}rubygem(ruport) >= 1.7.0
+BuildRequires:       %{?scl_prefix}rubygem(prawn)
+BuildRequires:       %{?scl_prefix}rubygem(daemons) >= 1.1.4
+BuildRequires:       %{?scl_prefix}rubygem(uuidtools)
+BuildRequires:       %{?scl_prefix}rubygem(thin)
+BuildRequires:       %{?scl_prefix}rubygem(sass)
+BuildRequires:       %{?scl_prefix}rubygem(tire) >= 0.3.0
+BuildRequires:       %{?scl_prefix}rubygem(tire) < 0.4
+BuildRequires:       %{?scl_prefix}rubygem(ldap_fluff)
+BuildRequires:       %{?scl_prefix}rubygem(apipie-rails) >= 0.0.18
+BuildRequires:       %{?scl_prefix}rubygem(maruku)
+BuildRequires:       %{?scl_prefix}rubygem(foreman_api)
 
 %description common
 Common bits for all Katello instances
@@ -163,17 +168,22 @@ Common bits for all Katello instances
 %package all
 BuildArch:      noarch
 Summary:        A meta-package to pull in all components for Katello
-Requires:       %{name}
-Requires:       %{name}-configure
-Requires:       %{name}-cli
+Requires:       %{?scl_prefix}%{pkg_name}
+Requires:       %{?scl_prefix}%{pkg_name}-configure
+Requires:       %{?scl_prefix}%{pkg_name}-cli
 Requires:       postgresql-server
 Requires:       postgresql
 Requires(post): candlepin-tomcat6
 Requires:       candlepin-selinux
 # the following backend engine deps are required by <katello-configure>
-Requires:       mongodb mongodb-server
-Requires:       qpid-cpp-server qpid-cpp-client qpid-cpp-client-ssl qpid-cpp-server-ssl
-Requires:       foreman foreman-postgresql
+Requires:       mongodb
+Requires:       mongodb-server
+Requires:       qpid-cpp-server
+Requires:       qpid-cpp-client
+Requires:       qpid-cpp-client-ssl
+Requires:       qpid-cpp-server-ssl
+Requires:       foreman
+Requires:       foreman-postgresql
 # </katello-configure>
 
 
@@ -185,7 +195,7 @@ and then run katello-configure to configure everything.
 %package glue-elasticsearch
 BuildArch:      noarch
 Summary:         Katello connection classes for the Elastic Search backend
-Requires:        %{name}-common
+Requires:        %{?scl_prefix}%{pkg_name}-common
 
 %description glue-elasticsearch
 Katello connection classes for the Elastic Search backend
@@ -193,11 +203,11 @@ Katello connection classes for the Elastic Search backend
 %package glue-pulp
 BuildArch:      noarch
 Summary:         Katello connection classes for the Pulp backend
-Requires:        %{name}-common
+Requires:        %{?scl_prefix}%{pkg_name}-common
 Requires:        pulp-server
 Requires:        pulp-rpm-plugins
 Requires:        pulp-selinux
-Requires:        rubygem(runcible) >= 0.3.3
+Requires:        %{?scl_prefix}rubygem(runcible) >= 0.3.3
 
 %description glue-pulp
 Katello connection classes for the Pulp backend
@@ -205,9 +215,9 @@ Katello connection classes for the Pulp backend
 %package glue-foreman
 BuildArch:      noarch
 Summary:         Katello connection classes for the Foreman backend
-Requires:        %{name}-common
+Requires:        %{?scl_prefix}%{pkg_name}-common
 # dependencies from bundler.d/foreman.rb
-Requires:       rubygem(foreman_api) >= 0.0.18
+Requires:       %{?scl_prefix}rubygem(foreman_api) >= 0.0.18
 
 %description glue-foreman
 Katello connection classes for the Foreman backend
@@ -215,7 +225,7 @@ Katello connection classes for the Foreman backend
 %package glue-candlepin
 BuildArch:      noarch
 Summary:         Katello connection classes for the Candlepin backend
-Requires:        %{name}-common
+Requires:        %{?scl_prefix}%{pkg_name}-common
 
 %description glue-candlepin
 Katello connection classes for the Candlepin backend
@@ -223,21 +233,21 @@ Katello connection classes for the Candlepin backend
 %package headpin
 Summary:        A subscription management only version of Katello
 BuildArch:      noarch
-Requires:       katello-common
-Requires:       %{name}-glue-candlepin
-Requires:       %{name}-glue-elasticsearch
-Requires:       katello-selinux
-Requires:       rubygem(bundler_ext)
-BuildRequires:  rubygem(bundler_ext)
+Requires:       %{?scl_prefix}katello-common
+Requires:       %{?scl_prefix}%{pkg_name}-glue-candlepin
+Requires:       %{?scl_prefix}%{pkg_name}-glue-elasticsearch
+Requires:       %{?scl_prefix}katello-selinux
+Requires:       %{?scl_prefix}rubygem(bundler_ext)
+BuildRequires:  %{?scl_prefix}rubygem(bundler_ext)
 
 %description headpin
 A subscription management only version of Katello.
 
 %package headpin-all
 Summary:        A meta-package to pull in all components for katello-headpin
-Requires:       katello-headpin
-Requires:       katello-configure
-Requires:       katello-cli
+Requires:       %{?scl_prefix}katello-headpin
+Requires:       %{?scl_prefix}katello-configure
+Requires:       %{?scl_prefix}katello-cli
 Requires:       postgresql-server
 Requires:       postgresql
 Requires(post): candlepin-tomcat6
@@ -252,7 +262,7 @@ and then run katello-configure to configure everything.
 %package api-docs
 Summary:         Documentation files for Katello API
 BuildArch:       noarch
-Requires:        %{name}-common
+Requires:        %{?scl_prefix}%{pkg_name}-common
 
 %description api-docs
 Documentation files for Katello API.
@@ -260,7 +270,7 @@ Documentation files for Katello API.
 %package headpin-api-docs
 Summary:         Documentation files for Headpin API
 BuildArch:       noarch
-Requires:        %{name}-common
+Requires:        %{?scl_prefix}%{pkg_name}-common
 
 %description headpin-api-docs
 Documentation files for Headpin API.
@@ -268,35 +278,35 @@ Documentation files for Headpin API.
 %package devel-all
 Summary:         Katello devel support (all subpackages)
 BuildArch:       noarch
-Requires:        %{name}-devel = %{version}-%{release}
-Requires:        %{name}-devel-profiling = %{version}-%{release}
-Requires:        %{name}-devel-test = %{version}-%{release}
-Requires:        %{name}-devel-checking = %{version}-%{release}
-Requires:        %{name}-devel-coverage = %{version}-%{release}
-Requires:        %{name}-devel-debugging = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name}-devel = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name}-devel-profiling = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name}-devel-test = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name}-devel-checking = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name}-devel-coverage = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name}-devel-debugging = %{version}-%{release}
 
 %description devel-all
-Meta package to install all %{name}-devel-* subpackages.
+Meta package to install all %{pkg_name}-devel-* subpackages.
 
 %package devel
 Summary:         Katello devel support
 BuildArch:       noarch
-Requires:        %{name} = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name} = %{version}-%{release}
 # Gemfile
-Requires:        rubygem(ci_reporter) >= 1.6.3
+Requires:        %{?scl_prefix}rubygem(ci_reporter) >= 1.6.3
 # dependencies from bundler.d/development.rb
-Requires:        rubygem(rspec-rails) >= 2.0.0
-Requires:        rubygem(parallel_tests)
-Requires:        rubygem(yard) >= 0.5.3
-Requires:        rubygem(js-routes)
-Requires:        rubygem(gettext) >= 1.9.3
-Requires:        rubygem(ruby_parser)
-Requires:        rubygem(sexp_processor)
-Requires:        rubygem(factory_girl_rails) >= 1.4.0
+Requires:        %{?scl_prefix}rubygem(rspec-rails) >= 2.0.0
+Requires:        %{?scl_prefix}rubygem(parallel_tests)
+Requires:        %{?scl_prefix}rubygem(yard) >= 0.5.3
+Requires:        %{?scl_prefix}rubygem(js-routes)
+Requires:        %{?scl_prefix}rubygem(gettext) >= 1.9.3
+Requires:        %{?scl_prefix}rubygem(ruby_parser)
+Requires:        %{?scl_prefix}rubygem(sexp_processor)
+Requires:        %{?scl_prefix}rubygem(factory_girl_rails) >= 1.4.0
 # dependencies from bundler.d/development_boost.rb
-Requires:        rubygem(rails-dev-boost)
+Requires:        %{?scl_prefix}rubygem(rails-dev-boost)
 # dependencies from bundler.d/apipie.rb
-Requires:        rubygem(maruku)
+Requires:        %{?scl_prefix}rubygem(maruku)
 
 %description devel
 Rake tasks and dependecies for Katello developers
@@ -304,11 +314,11 @@ Rake tasks and dependecies for Katello developers
 %package devel-profiling
 Summary:         Katello devel support (profiling)
 BuildArch:       noarch
-Requires:        %{name} = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name} = %{version}-%{release}
 # dependencies from bundler.d/profiling.rb
-Requires:        rubygem(ruby-prof)
-Requires:        rubygem(logical-insight)
-Requires:        rubygem(newrelic_rpm)
+Requires:        %{?scl_prefix}rubygem(ruby-prof)
+Requires:        %{?scl_prefix}rubygem(logical-insight)
+Requires:        %{?scl_prefix}rubygem(newrelic_rpm)
 
 %description devel-profiling
 Rake tasks and dependecies for Katello developers, which enables
@@ -317,13 +327,13 @@ profiling.
 %package devel-checking
 Summary:         Katello devel support (unit test and syntax checking)
 BuildArch:       noarch
-Provides:        katello-devel-jshintrb = 1.2.1-1
-Obsoletes:       katello-devel-jshintrb < 1.2.1-1
-Requires:        %{name} = %{version}-%{release}
+Provides:        %{?scl_prefix}katello-devel-jshintrb = 1.2.1-1
+Obsoletes:       %{?scl_prefix}katello-devel-jshintrb < 1.2.1-1
+Requires:        %{?scl_prefix}%{pkg_name} = %{version}-%{release}
 # dependencies from bundler.d/checking.rb
-Requires:        rubygem(therubyracer)
-Requires:        rubygem(ref)
-Requires:        rubygem(jshintrb)
+Requires:        %{?scl_prefix}rubygem(therubyracer)
+Requires:        %{?scl_prefix}rubygem(ref)
+Requires:        %{?scl_prefix}rubygem(jshintrb)
 
 %description devel-checking
 Rake tasks and dependecies for Katello developers, which enables
@@ -332,12 +342,12 @@ syntax checking and is need for unit testing.
 %package devel-coverage
 Summary:         Katello devel support (test coverage utils)
 BuildArch:       noarch
-Requires:        %{name} = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name} = %{version}-%{release}
 # dependencies from bundler.d/coverage.rb
 %if 0%{?fedora} > 16
-Requires:        rubygem(simplecov)
+Requires:        %{?scl_prefix}rubygem(simplecov)
 %else
-Requires:        rubygem(rcov) >= 0.9.9
+Requires:        %{?scl_prefix}rubygem(rcov) >= 0.9.9
 %endif
 
 %description devel-coverage
@@ -347,12 +357,12 @@ code coverage for tests.
 %package devel-debugging
 Summary:         Katello devel support (debugging)
 BuildArch:       noarch
-Requires:        %{name} = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name} = %{version}-%{release}
 # dependencies from bundler.d/debugging.rb
 %if 0%{?fedora} > 16
-Requires:        rubygem(ruby-debug19)
+Requires:        %{?scl_prefix}rubygem(ruby-debug19)
 %else
-Requires:        rubygem(ruby-debug)
+Requires:        %{?scl_prefix}rubygem(ruby-debug)
 %endif
 
 %description devel-debugging
@@ -362,31 +372,31 @@ debugging Ruby code.
 %package devel-test
 Summary:         Katello devel support (testing)
 BuildArch:       noarch
-Requires:        %{name} = %{version}-%{release}
-Requires:        %{name}-devel = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name} = %{version}-%{release}
+Requires:        %{?scl_prefix}%{pkg_name}-devel = %{version}-%{release}
 # dependencies from bundler.d/test.rb
-Requires:        rubygem(ZenTest) >= 4.4.0
-Requires:        rubygem(autotest-rails) >= 4.1.0
-Requires:        rubygem(rspec-rails) >= 2.0.0
-Requires:        rubygem(webrat) >= 0.7.3
-Requires:        rubygem(nokogiri) >= 0.9.9
-Requires:        rubygem(vcr)
-Requires:        rubygem(webmock)
-Requires:        rubygem(minitest) <= 4.5.0
-Requires:        rubygem(minitest-rails)
-Requires:        rubygem(minitest_tu_shim)
-Requires:        rubygem(parallel_tests)
+Requires:        %{?scl_prefix}rubygem(ZenTest) >= 4.4.0
+Requires:        %{?scl_prefix}rubygem(autotest-rails) >= 4.1.0
+Requires:        %{?scl_prefix}rubygem(rspec-rails) >= 2.0.0
+Requires:        %{?scl_prefix}rubygem(webrat) >= 0.7.3
+Requires:        %{?scl_prefix}rubygem(nokogiri) >= 0.9.9
+Requires:        %{?scl_prefix}rubygem(vcr)
+Requires:        %{?scl_prefix}rubygem(webmock)
+Requires:        %{?scl_prefix}rubygem(minitest) <= 4.5.0
+Requires:        %{?scl_prefix}rubygem(minitest-rails)
+Requires:        %{?scl_prefix}rubygem(minitest_tu_shim)
+Requires:        %{?scl_prefix}rubygem(parallel_tests)
 
-BuildRequires:        rubygem(minitest)
-BuildRequires:        rubygem(minitest-rails)
-BuildRequires:        rubygem(rspec-rails)
+BuildRequires:        %{?scl_prefix}rubygem(minitest)
+BuildRequires:        %{?scl_prefix}rubygem(minitest-rails)
+BuildRequires:        %{?scl_prefix}rubygem(rspec-rails)
 
 %description devel-test
 Rake tasks and dependecies for Katello developers, which enables
 testing.
 
 %prep
-%setup -q
+%setup -n %{pkg_name}-%{version} -q
 
 %build
 export RAILS_ENV=build
@@ -467,9 +477,9 @@ install -d -m0755 %{buildroot}%{datadir}
 install -d -m0755 %{buildroot}%{datadir}/tmp
 install -d -m0755 %{buildroot}%{datadir}/tmp/pids
 install -d -m0755 %{buildroot}%{datadir}/config
-install -d -m0755 %{buildroot}%{_sysconfdir}/%{name}
+install -d -m0755 %{buildroot}%{_sysconfdir}/%{pkg_name}
 
-install -d -m0755 %{buildroot}%{_localstatedir}/log/%{name}
+install -d -m0755 %{buildroot}%{_localstatedir}/log/%{pkg_name}
 mkdir -p %{buildroot}/%{_mandir}/man8
 
 # clean the application directory before installing
@@ -484,34 +494,34 @@ cp -R .bundle Gemfile.in bundler.d Rakefile app autotest ca config config.ru db 
 rm -f {buildroot}%{homedir}/script/katello-reset-dbs
 
 #copy configs and other var files (will be all overwriten with symlinks)
-install -m 600 config/%{name}.template.yml %{buildroot}%{_sysconfdir}/%{name}/%{name}.yml
-install -m 644 config/environments/production.rb %{buildroot}%{_sysconfdir}/%{name}/environment.rb
+install -m 600 config/%{pkg_name}.template.yml %{buildroot}%{_sysconfdir}/%{pkg_name}/%{pkg_name}.yml
+install -m 644 config/environments/production.rb %{buildroot}%{_sysconfdir}/%{pkg_name}/environment.rb
 
 #copy cron scripts to be scheduled daily
 install -d -m0755 %{buildroot}%{_sysconfdir}/cron.daily
 install -m 755 script/katello-refresh-cdn %{buildroot}%{_sysconfdir}/cron.daily/katello-refresh-cdn
 
 #copy init scripts and sysconfigs
-install -Dp -m0644 %{confdir}/%{name}.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+install -Dp -m0644 %{confdir}/%{pkg_name}.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/%{pkg_name}
 install -Dp -m0644 %{confdir}/service-wait.sysconfig %{buildroot}%{_sysconfdir}/sysconfig/service-wait
-install -Dp -m0755 %{confdir}/%{name}.init %{buildroot}%{_initddir}/%{name}
-install -Dp -m0755 %{confdir}/%{name}-jobs.init %{buildroot}%{_initddir}/%{name}-jobs
-install -Dp -m0644 %{confdir}/%{name}.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
-install -Dp -m0644 %{confdir}/%{name}.httpd.conf %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
-install -Dp -m0644 %{confdir}/thin.yml %{buildroot}%{_sysconfdir}/%{name}/
-install -Dp -m0644 %{confdir}/mapping.yml %{buildroot}%{_sysconfdir}/%{name}/
+install -Dp -m0755 %{confdir}/%{pkg_name}.init %{buildroot}%{_initddir}/%{pkg_name}
+install -Dp -m0755 %{confdir}/%{pkg_name}-jobs.init %{buildroot}%{_initddir}/%{pkg_name}-jobs
+install -Dp -m0644 %{confdir}/%{pkg_name}.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{pkg_name}
+install -Dp -m0644 %{confdir}/%{pkg_name}.httpd.conf %{buildroot}%{_sysconfdir}/httpd/conf.d/%{pkg_name}.conf
+install -Dp -m0644 %{confdir}/thin.yml %{buildroot}%{_sysconfdir}/%{pkg_name}/
+install -Dp -m0644 %{confdir}/mapping.yml %{buildroot}%{_sysconfdir}/%{pkg_name}/
 
 #overwrite config files with symlinks to /etc/katello
-ln -svf %{_sysconfdir}/%{name}/%{name}.yml %{buildroot}%{homedir}/config/%{name}.yml
-#ln -svf %{_sysconfdir}/%{name}/database.yml %{buildroot}%{homedir}/config/database.yml
-ln -svf %{_sysconfdir}/%{name}/environment.rb %{buildroot}%{homedir}/config/environments/production.rb
-install -p -m0644 etc/service-list %{buildroot}%{_sysconfdir}/%{name}/
+ln -svf %{_sysconfdir}/%{pkg_name}/%{pkg_name}.yml %{buildroot}%{homedir}/config/%{pkg_name}.yml
+#ln -svf %{_sysconfdir}/%{pkg_name}/database.yml %{buildroot}%{homedir}/config/database.yml
+ln -svf %{_sysconfdir}/%{pkg_name}/environment.rb %{buildroot}%{homedir}/config/environments/production.rb
+install -p -m0644 etc/service-list %{buildroot}%{_sysconfdir}/%{pkg_name}/
 
 #create symlinks for some db/ files
 ln -svf %{datadir}/schema.rb %{buildroot}%{homedir}/db/schema.rb
 
 #create symlinks for data
-ln -sv %{_localstatedir}/log/%{name} %{buildroot}%{homedir}/log
+ln -sv %{_localstatedir}/log/%{pkg_name} %{buildroot}%{homedir}/log
 ln -sv %{datadir}/tmp %{buildroot}%{homedir}/tmp
 
 #create symlinks for important scripts
@@ -549,8 +559,8 @@ install -m 644 man/katello-service.8 %{buildroot}/%{_mandir}/man8
 %post common
 
 #Add /etc/rc*.d links for the script
-/sbin/chkconfig --add %{name}
-/sbin/chkconfig --add %{name}-jobs
+/sbin/chkconfig --add %{pkg_name}
+/sbin/chkconfig --add %{pkg_name}-jobs
 
 #Generate secret token if the file does not exist
 #(this must be called both for installation and upgrade)
@@ -561,7 +571,7 @@ test -f $TOKEN || (echo $(</dev/urandom tr -dc A-Za-z0-9 | head -c128) > $TOKEN 
     && chmod 600 $TOKEN && chown katello:katello $TOKEN)
 
 %posttrans common
-/sbin/service %{name} condrestart >/dev/null 2>&1 || :
+/sbin/service %{pkg_name} condrestart >/dev/null 2>&1 || :
 
 %post headpin-all
 usermod -a -G katello-shared tomcat
@@ -572,7 +582,7 @@ usermod -a -G katello-shared tomcat
 %files
 %attr(600, katello, katello)
 %{_bindir}/katello-*
-%ghost %attr(600, katello, katello) %{_sysconfdir}/%{name}/secret_token
+%ghost %attr(600, katello, katello) %{_sysconfdir}/%{pkg_name}/secret_token
 %dir %{homedir}/app
 %{homedir}/app/controllers
 %exclude %{homedir}/app/controllers/api/foreman
@@ -640,24 +650,24 @@ usermod -a -G katello-shared tomcat
 %dir %{homedir}/.bundle
 %{homedir}/config.ru
 %{homedir}/Gemfile.in
-%config(noreplace) %{_sysconfdir}/%{name}/service-list
+%config(noreplace) %{_sysconfdir}/%{pkg_name}/service-list
 %{homedir}/Rakefile
 %{_mandir}/man8/katello-service.8*
 
 %files common
 %doc LICENSE.txt
 %{_sbindir}/service-wait
-%dir %{_sysconfdir}/%{name}
-%config(noreplace) %attr(600, katello, katello) %{_sysconfdir}/%{name}/%{name}.yml
-%config(noreplace) %{_sysconfdir}/%{name}/thin.yml
-%config(noreplace) %{_sysconfdir}/httpd/conf.d/%{name}.conf
-%config %{_sysconfdir}/%{name}/environment.rb
-%config %{_sysconfdir}/logrotate.d/%{name}
-%config %{_sysconfdir}/%{name}/mapping.yml
-%config(noreplace) %{_sysconfdir}/sysconfig/%{name}
+%dir %{_sysconfdir}/%{pkg_name}
+%config(noreplace) %attr(600, katello, katello) %{_sysconfdir}/%{pkg_name}/%{pkg_name}.yml
+%config(noreplace) %{_sysconfdir}/%{pkg_name}/thin.yml
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/%{pkg_name}.conf
+%config %{_sysconfdir}/%{pkg_name}/environment.rb
+%config %{_sysconfdir}/logrotate.d/%{pkg_name}
+%config %{_sysconfdir}/%{pkg_name}/mapping.yml
+%config(noreplace) %{_sysconfdir}/sysconfig/%{pkg_name}
 %config(noreplace) %{_sysconfdir}/sysconfig/service-wait
-%{_initddir}/%{name}
-%{_initddir}/%{name}-jobs
+%{_initddir}/%{pkg_name}
+%{_initddir}/%{pkg_name}-jobs
 %{homedir}/log
 %dir %{homedir}/db
 %{homedir}/db/schema.rb
@@ -669,10 +679,10 @@ usermod -a -G katello-shared tomcat
 
 %defattr(-, katello, katello)
 %dir %{homedir}
-%attr(750, katello, katello) %{_localstatedir}/log/%{name}
+%attr(750, katello, katello) %{_localstatedir}/log/%{pkg_name}
 %{datadir}
-%ghost %attr(640, katello, katello) %{_localstatedir}/log/%{name}/production.log
-%ghost %attr(640, katello, katello) %{_localstatedir}/log/%{name}/delayed_production.log
+%ghost %attr(640, katello, katello) %{_localstatedir}/log/%{pkg_name}/production.log
+%ghost %attr(640, katello, katello) %{_localstatedir}/log/%{pkg_name}/delayed_production.log
 
 %files glue-elasticsearch
 %{homedir}/app/models/glue/elastic_search
@@ -791,9 +801,9 @@ usermod -a -G katello-shared tomcat
 
 %pre common
 # Add the "katello" user and group
-getent group %{name} >/dev/null || groupadd -r %{name} -g 182
-getent passwd %{name} >/dev/null || \
-    useradd -r -g %{name} -d %{homedir} -u 182 -s /sbin/nologin -c "Katello" %{name}
+getent group %{pkg_name} >/dev/null || groupadd -r %{pkg_name} -g 182
+getent passwd %{pkg_name} >/dev/null || \
+    useradd -r -g %{pkg_name} -d %{homedir} -u 182 -s /sbin/nologin -c "Katello" %{pkg_name}
 # add tomcat & katello to the katello shared group for reading sensitive files
 getent group katello-shared > /dev/null || groupadd -r katello-shared
 usermod -a -G katello-shared katello
@@ -801,10 +811,10 @@ exit 0
 
 %preun common
 if [ $1 -eq 0 ] ; then
-    /sbin/service %{name}-jobs stop >/dev/null 2>&1
-    /sbin/chkconfig --del %{name}-jobs
-    /sbin/service %{name} stop >/dev/null 2>&1
-    /sbin/chkconfig --del %{name}
+    /sbin/service %{pkg_name}-jobs stop >/dev/null 2>&1
+    /sbin/chkconfig --del %{pkg_name}-jobs
+    /sbin/service %{pkg_name} stop >/dev/null 2>&1
+    /sbin/chkconfig --del %{pkg_name}
 fi
 
 %changelog
