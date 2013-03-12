@@ -24,7 +24,7 @@
 %endif
 
 Name:           %{?scl_prefix}katello
-Version:        1.3.14
+Version:        1.3.15
 Release:        1%{?dist}
 Summary:        A package for managing application life-cycle for Linux systems
 BuildArch:      noarch
@@ -818,6 +818,9 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %changelog
+* Tue Mar 12 2013 Lukas Zapletal <lzap+git@redhat.com> 1.3.15-1
+- new package built with tito
+
 * Wed Jan 30 2013 Justin Sherrill <jsherril@redhat.com> 1.3.14-1
 - bumping required runcible version (jsherril@redhat.com)
 - require pulp-selinux (jsherril@redhat.com)
