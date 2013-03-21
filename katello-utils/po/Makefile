@@ -5,12 +5,24 @@
 POTFILE = katello-disconnected.pot
 POFILES = $(shell find . -name '*.po')
 MOFILES = $(patsubst %.po,%.mo,$(POFILES))
+POXFILES = $(patsubst %.po,%.pox,$(POFILES))
 
 %.mo: %.po
 	msgfmt -o $@ $<
 
 # Generate MO files from PO files
 all-mo: $(MOFILES)
+
+# Check for malformed strings
+# TODO - enable endwhitespace, endpunc, puncspacing filters
+%.pox: %.po
+	msgfmt -c $<
+	pofilter --nofuzzy -t variables -t blank -t urls -t emails -t long -t newlines \
+		-t options -t printf -t validchars --gnome $< > $@
+	echo "Checking $< for malformed strings"
+	-grep -q msgid $@ && exit 42
+
+check: $(POXFILES)
 
 # Merge PO files
 update-po:
@@ -26,4 +38,5 @@ uniq-po:
 
 # Remove all MO files
 clean:
-	find . -name "*.mo" -exec rm '{}' ';'
+	-rm -f messages.mo
+	find . \( -name "*.mo" -o -name "*.pox" \) -exec rm -f '{}' ';'
